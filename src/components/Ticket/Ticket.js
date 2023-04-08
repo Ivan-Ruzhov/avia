@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./Ticket.module.scss";
 
 const Ticket = () => {
-  console.log(classes);
   return (
     <div className={classes.ticket}>
       <header className={classes.ticket__header}>
