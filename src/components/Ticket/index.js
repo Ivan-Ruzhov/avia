@@ -1,2 +1,2 @@
-import { Ticket} from "./Ticket";
-export { Ticket }
+import { Ticket } from "./Ticket";
+export { Ticket };

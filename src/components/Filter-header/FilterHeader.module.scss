@@ -18,6 +18,10 @@
       width: 168px;
     }
   }
+  &__buttons-active {
+    background: $color-blue;
+    color: $color-white
+  }
     &__span {
       display: flex;
       align-items: center;
@@ -29,13 +33,10 @@
       color: $color-black-tin;
       margin: 0 auto;
     }
-    &__span:hover {
+    &__span-active {
       color: $color-white
     }
-  &__buttons:hover {
-    background: $color-blue;
-    color: $color-white
-  }
+
   &__button-cheap {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;

@@ -1,2 +1,2 @@
 import { FilterMenu } from "./FilterMenu";
-export { FilterMenu }
+export { FilterMenu };

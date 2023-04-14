@@ -1,2 +1,2 @@
 import { FooterButton } from "./FooterButton";
-export { FooterButton }
+export { FooterButton };

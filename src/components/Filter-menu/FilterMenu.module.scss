@@ -1,17 +1,18 @@
 @import "./src/color/color.scss";
-.side-menu {
-  display: flex;
-  width: 90%;
-  flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  padding: 20px 0 20px 0;
-  margin: 0 auto;
+.antd-checkbox {
+  display: flex !important;
+  flex-direction: column !important;
   background: $color-white;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
   @media (min-width: 768px) {
     width: 232px;
     height: 252px;
     margin: 0 20px 0 auto;
+  }
+  &__checkbox {
+    margin-left: 20px;
   }
   &__header {
     display: flex;
@@ -24,19 +25,25 @@
     color: $color-black-tin;
     max-width: 192px;
     margin-left: 20px;
+    margin-bottom: 20px;
+    padding-top: 20px;
   }
 }
-.checkbox-containers {
+.antd-checkbox-group {
   display: flex;
   width: 232px;
   height: 40px;
   padding: 10px 0 10px 20px;
   position: relative;
+  label {
+    margin: 0 !important;
+  }
   &__checkbox {
     position: absolute;
     z-index: -1;
     opacity: 0;
     margin-left: 20px;
+
   }
   &__checkbox+&__label::before {
     content: '';

@@ -1,2 +1,2 @@
 import { FilterHeader } from "./FilterHeader";
-export { FilterHeader }
+export { FilterHeader };

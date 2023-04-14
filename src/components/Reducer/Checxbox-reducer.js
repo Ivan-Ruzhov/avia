@@ -1,58 +1,44 @@
-const defaultState = {
-  checkbox: {
-    all: false,
-    noTransfer: false,
-    oneTransfer: false,
-    twoTransfer: false,
-    threeTransfer: false,
-  },
+import { SET_CHECK_ALL, SET_CHECKED_lIST, SET_RADIO } from "../actions/types";
+
+const initialState = {
+  checkedList: ["Без пересадок", "1 пересадка", "2 пересадки", "3 пересадки"],
+  checkAll: true,
+  radio: "a",
 };
 
-const checkbox = (state = defaultState, action) => {
+const checkboxOptions = (state = initialState, action) => {
   switch (action.type) {
-    case "ALL":
-      return {
-        ...state,
-        checkbox: {
-          all: !state.checkbox.all,
-          noTransfer: !state.checkbox.all,
-          oneTransfer: !state.checkbox.all,
-          twoTransfer: !state.checkbox.all,
-          threeTransfer: !state.checkbox.all,
-        },
-      };
-    case "NO-TRANSFER":
-      return {
-        ...state,
-        checkbox: { ...state.checkbox, noTransfer: !state.checkbox.noTransfer },
-      };
-    case "ONE-TRANSFER":
-      return {
-        ...state,
-        checkbox: {
-          ...state.checkbox,
-          oneTransfer: !state.checkbox.oneTransfer,
-        },
-      };
-    case "TWO-TRANSFER":
-      return {
-        ...state,
-        checkbox: {
-          ...state.checkbox,
-          twoTransfer: !state.checkbox.twoTransfer,
-        },
-      };
-    case "THREE-TRANSFER":
-      return {
-        ...state,
-        checkbox: {
-          ...state.checkbox,
-          threeTransfer: !state.checkbox.threeTransfer,
-        },
-      };
+    case SET_CHECKED_lIST:
+      return { ...state, checkedList: action.payload };
+    case SET_CHECK_ALL:
+      return { ...state, checkAll: action.payload };
+    case SET_RADIO:
+      return { ...state, radio: action.payload };
     default:
       return state;
   }
 };
+const filterOfStops = (tickets, checkedList) => {
+  const newCheckedList = checkedList.map((item) => {
+    switch (item) {
+      case "Без пересадок":
+        return 0;
+      case "1 пересадка":
+        return 1;
+      case "2 пересадки":
+        return 2;
+      case "3 пересадки":
+        return 3;
+      default:
+        return 0;
+    }
+  });
+  const newTicketsList = tickets.filter(
+    (ticket) =>
+      newCheckedList.includes(ticket.segments[0].stops.length) &&
+      newCheckedList.includes(ticket.segments[1].stops.length)
+  );
+  return newTicketsList;
+};
 
-export { checkbox };
+export { checkboxOptions, filterOfStops };

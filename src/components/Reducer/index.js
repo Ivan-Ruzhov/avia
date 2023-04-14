@@ -1,8 +1,19 @@
-import { createStore, combineReducers } from "redux";
-import { checkbox } from "./Checxbox-reducer";
+import { createStore, combineReducers, compose, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+
+import { checkboxOptions } from "./Checxbox-reducer";
+import { ticketReducer } from "./Ticket-reducer";
+import { moreTickets } from "./Filter-More-Tickets";
+
 const rootReducer = combineReducers({
-  checkbox,
+  checkboxOptions,
+  ticketReducer,
+  moreTickets,
 });
-const store = createStore(rootReducer);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 export { store };

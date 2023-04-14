@@ -1,106 +1,54 @@
 import React from "react";
-import classes from "./FilterMenu.module.scss";
+import { Checkbox } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { setCheckAll, setCheckedList } from "../actions/actions";
+import classes from "./FilterMenu.module.scss";
+const CheckboxGroup = Checkbox.Group;
+
+const plainOptions = [
+  "Без пересадок",
+  "1 пересадка",
+  "2 пересадки",
+  "3 пересадки",
+];
 
 const FilterMenu = () => {
   const dispatch = useDispatch();
-  const filter = useSelector((state) => state.checkbox.checkbox);
-  const all = () => {
-    dispatch({ type: "ALL" });
+  const filter = useSelector((state) => state.checkboxOptions);
+  const onChange = (list) => {
+    dispatch(setCheckedList(list));
+    dispatch(setCheckAll(list.length === plainOptions.length));
   };
-  const noTransfer = () => {
-    dispatch({ type: "NO-TRANSFER" });
-  };
-  const oneTransfer = () => {
-    dispatch({ type: "ONE-TRANSFER" });
-  };
-  const twoTransfer = () => {
-    dispatch({ type: "TWO-TRANSFER" });
-  };
-  const threeTransfer = () => {
-    dispatch({ type: "THREE-TRANSFER" });
+
+  const onCheckAllChange = (event) => {
+    dispatch(setCheckedList(event.target.checked ? plainOptions : []));
+    dispatch(setCheckAll(event.target.checked));
   };
   return (
-    <div className={classes["side-menu"]}>
-      <h2 className={classes["side-menu__header"]}>Количетсво пересадок</h2>
-      <div className={classes["checkbox-containers"]}>
-        <input
-          className={classes["checkbox-containers__checkbox"]}
-          type="checkbox"
-          id="All"
-          value="Все"
-          checked={filter.All}
-          onChange={all}
-        />
-        <label className={classes["checkbox-containers__label"]} htmlFor="All">
-          Все
-        </label>
-      </div>
-      <div className={classes["checkbox-containers"]}>
-        <input
-          className={classes["checkbox-containers__checkbox"]}
-          type="checkbox"
-          id="No-transfer"
-          value="Без пересадок"
-          checked={filter.noTransfer}
-          onChange={noTransfer}
-        />
-        <label
-          className={classes["checkbox-containers__label"]}
-          htmlFor="No-transfer"
-        >
-          Без пересадок
-        </label>
-      </div>
-      <div className={classes["checkbox-containers"]}>
-        <input
-          className={classes["checkbox-containers__checkbox"]}
-          type="checkbox"
-          id="One-transfer"
-          value="1 пересадка"
-          checked={filter.oneTransfer}
-          onChange={oneTransfer}
-        />
-        <label
-          className={classes["checkbox-containers__label"]}
-          htmlFor="One-transfer"
-        >
-          1 пересадка
-        </label>
-      </div>
-      <div className={classes["checkbox-containers"]}>
-        <input
-          className={classes["checkbox-containers__checkbox"]}
-          type="checkbox"
-          id="Two-transplants"
-          value="2 пересадки"
-          checked={filter.twoTransfer}
-          onChange={twoTransfer}
-        />
-        <label
-          className={classes["checkbox-containers__label"]}
-          htmlFor="Two-transplants"
-        >
-          2 пересадки
-        </label>
-      </div>
-      <div className={classes["checkbox-containers"]}>
-        <input
-          className={classes["checkbox-containers__checkbox"]}
-          type="checkbox"
-          id="Three-transplants"
-          value="3 пересадким"
-          checked={filter.threeTransfer}
-          onChange={threeTransfer}
-        />
-        <label
-          className={classes["checkbox-containers__label"]}
-          htmlFor="Three-transplants"
-        >
-          3 пересадки
-        </label>
-      </div>
-    </div>
+    <section className={classes["antd-checkbox"]}>
+      <p className={classes["antd-checkbox__header"]}> Kоличество пересадок</p>
+      <Checkbox
+        className={classes["antd-checkbox__checkbox"]}
+        onChange={onCheckAllChange}
+        checked={filter.checkAll}
+      >
+        Все
+      </Checkbox>
+      <CheckboxGroup
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+          height: "100%",
+          padding: "10px 0px 20px 20px",
+          margin: "0px",
+        }}
+        className={classes["antd-checkbox-group"]}
+        options={plainOptions}
+        value={filter.checkedList}
+        onChange={onChange}
+      />
+    </section>
   );
 };
 
