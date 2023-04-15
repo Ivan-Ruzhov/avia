@@ -10,6 +10,7 @@ const LOADING_BEGIN = "LOADING-BEGIN";
 const LOADING_END = "LOADING-END";
 const STOP_INC = "STOP-INC";
 const STOP_STATIC = "STOP-STATIC";
+const ERROR = "ERROR";
 export {
   TICKETS,
   FILTER_MORE_TICKETS,
@@ -23,4 +24,5 @@ export {
   LOADING_END,
   STOP_STATIC,
   STOP_INC,
+  ERROR,
 };

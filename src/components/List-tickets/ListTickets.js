@@ -27,7 +27,7 @@ const ListTickets = () => {
     dispatch(ticket(getTickets.getTickets()));
   }, []);
   useEffect(() => {
-    dispatch(ticket(getTickets.getTickets()));
+    dispatch(ticket(getTickets.getTickets().catch()));
   }, [stops]);
   return (
     <React.Fragment>

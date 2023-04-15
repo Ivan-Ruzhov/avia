@@ -7,6 +7,7 @@ import {
   LOADING_BEGIN,
   STOP_STATIC,
   STOP_INC,
+  ERROR,
 } from "../actions/types";
 
 const defaultState = {
@@ -38,6 +39,7 @@ const ticketReducer = (state = defaultState, action) => {
     case BUTTON_SALES:
       const arrSale = state.tickets.slice(0);
       return {
+        ...state,
         tickets: arrSale.sort((a, b) => {
           return a.price - b.price;
         }),
@@ -73,13 +75,17 @@ const ticketReducer = (state = defaultState, action) => {
         loading: false,
       };
     case STOP_INC:
-      console.log(state);
       return {
         ...state,
         stops: (state.stops += 1),
       };
     case STOP_STATIC:
       return state;
+    case ERROR:
+      return {
+        ...state,
+        err: "error",
+      };
     default:
       return state;
   }

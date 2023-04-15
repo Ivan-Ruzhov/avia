@@ -11,20 +11,24 @@ import {
   LOADING_BEGIN,
   STOP_STATIC,
   STOP_INC,
+  ERROR,
 } from "./types";
 
 const ticket = (fn) => {
   console.log("fetch");
   return async (dispatch) => {
-    const res = await fn;
-    dispatch({ type: TICKETS, arr: res });
-    if (!res.stop) {
-      console.log(res.stop);
-      dispatch(stopInc());
-    } else {
-      console.log(res.stop);
-      dispatch(stopStatic());
-      dispatch(loadingEnd());
+    try {
+      const res = await fn;
+      dispatch({ type: TICKETS, arr: res });
+      if (!res.stop) {
+        dispatch(stopInc());
+      } else {
+        dispatch(stopStatic());
+        dispatch(loadingEnd());
+      }
+    } catch (err) {
+      dispatch(error());
+      throw new Error(err);
     }
   };
 };
@@ -62,6 +66,8 @@ const stopStatic = () => ({ type: STOP_STATIC });
 const loadingBegin = () => ({ type: LOADING_BEGIN });
 
 const loadingEnd = () => ({ type: LOADING_END });
+
+const error = () => ({ type: ERROR });
 
 export {
   ticket,
