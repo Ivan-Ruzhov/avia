@@ -3,11 +3,18 @@ import {
   BUTTON_FAST,
   BUTTON_OPTIMAL,
   BUTTON_SALES,
+  LOADING_END,
+  LOADING_BEGIN,
+  STOP_STATIC,
+  STOP_INC,
 } from "../actions/types";
 
 const defaultState = {
   tickets: [],
-  stop: "",
+  stops: 0,
+  err: "",
+  loading: "",
+  end: "",
 };
 const totalDuration = (data) => {
   return data.segments.reduce((acc, prev) => (acc += prev.duration), 0);
@@ -16,7 +23,6 @@ const totalDuration = (data) => {
 const ticketReducer = (state = defaultState, action) => {
   switch (action.type) {
     case TICKETS:
-      console.log(action.arr.stop);
       const ticket = action.arr.tickets.map((el) => {
         return {
           price: el.price,
@@ -25,8 +31,9 @@ const ticketReducer = (state = defaultState, action) => {
         };
       });
       return {
-        tickets: ticket,
-        stop: action.arr.stop,
+        ...state,
+        tickets: [...state.tickets.slice(0), ...ticket],
+        end: action.arr.stop,
       };
     case BUTTON_SALES:
       const arrSale = state.tickets.slice(0);
@@ -55,6 +62,24 @@ const ticketReducer = (state = defaultState, action) => {
           return optimalPrev - optimalNext;
         }),
       };
+    case LOADING_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case LOADING_END:
+      return {
+        ...state,
+        loading: false,
+      };
+    case STOP_INC:
+      console.log(state);
+      return {
+        ...state,
+        stops: (state.stops += 1),
+      };
+    case STOP_STATIC:
+      return state;
     default:
       return state;
   }

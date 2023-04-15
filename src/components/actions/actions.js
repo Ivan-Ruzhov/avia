@@ -7,15 +7,25 @@ import {
   BUTTON_SALES,
   BUTTON_FAST,
   BUTTON_OPTIMAL,
+  LOADING_END,
+  LOADING_BEGIN,
+  STOP_STATIC,
+  STOP_INC,
 } from "./types";
 
-const tickets = (fn) => {
+const ticket = (fn) => {
+  console.log("fetch");
   return async (dispatch) => {
     const res = await fn;
-    dispatch({
-      type: TICKETS,
-      arr: res,
-    });
+    dispatch({ type: TICKETS, arr: res });
+    if (!res.stop) {
+      console.log(res.stop);
+      dispatch(stopInc());
+    } else {
+      console.log(res.stop);
+      dispatch(stopStatic());
+      dispatch(loadingEnd());
+    }
   };
 };
 
@@ -45,8 +55,16 @@ const onOptimal = () => ({ type: BUTTON_OPTIMAL });
 
 const onFast = () => ({ type: BUTTON_FAST });
 
+const stopInc = () => ({ type: STOP_INC });
+
+const stopStatic = () => ({ type: STOP_STATIC });
+
+const loadingBegin = () => ({ type: LOADING_BEGIN });
+
+const loadingEnd = () => ({ type: LOADING_END });
+
 export {
-  tickets,
+  ticket,
   moreTickets,
   setRadio,
   setCheckAll,
@@ -54,4 +72,5 @@ export {
   onSale,
   onFast,
   onOptimal,
+  loadingBegin,
 };
