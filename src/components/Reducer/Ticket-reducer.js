@@ -7,6 +7,7 @@ import {
 
 const defaultState = {
   tickets: [],
+  stop: "",
 };
 const totalDuration = (data) => {
   return data.segments.reduce((acc, prev) => (acc += prev.duration), 0);
@@ -15,6 +16,7 @@ const totalDuration = (data) => {
 const ticketReducer = (state = defaultState, action) => {
   switch (action.type) {
     case TICKETS:
+      console.log(action.arr.stop);
       const ticket = action.arr.tickets.map((el) => {
         return {
           price: el.price,
@@ -24,26 +26,30 @@ const ticketReducer = (state = defaultState, action) => {
       });
       return {
         tickets: ticket,
+        stop: action.arr.stop,
       };
     case BUTTON_SALES:
+      const arrSale = state.tickets.slice(0);
       return {
-        tickets: state.tickets.sort((a, b) => {
+        tickets: arrSale.sort((a, b) => {
           return a.price - b.price;
         }),
       };
     case BUTTON_FAST:
+      const arrFast = state.tickets.slice(0);
       return {
         ...state,
-        tickets: state.tickets.sort((a, b) => {
+        tickets: arrFast.sort((a, b) => {
           const overalDuration = ({ segments }) =>
             segments.reduce((acc, { duration }) => acc + duration, 0);
           return overalDuration(a) - overalDuration(b);
         }),
       };
     case BUTTON_OPTIMAL:
+      const arrOptimal = state.tickets.slice(0);
       return {
         ...state,
-        tickets: state.tickets.sort((a, b) => {
+        tickets: arrOptimal.sort((a, b) => {
           const optimalPrev = a.price + totalDuration(a);
           const optimalNext = b.price + totalDuration(b);
           return optimalPrev - optimalNext;

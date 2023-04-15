@@ -7,14 +7,13 @@ import { tickets } from "../actions/actions";
 import { filterOfStops } from "../Reducer/Checxbox-reducer";
 import classes from "./ListTickets.module.scss";
 const ListTickets = () => {
-  console.log("render");
   let id = 0;
   const ticket = new ticketsServes();
   const dispatch = useDispatch();
   const arrTickets = useSelector((state) => state.ticketReducer.tickets);
+  const stop = useSelector((state) => state.ticketReducer.stop);
   const filter = useSelector((state) => state.checkboxOptions.checkedList);
   const ticketList = filterOfStops(arrTickets, filter);
-  console.log(ticketList);
   const counter = useSelector((state) => state.moreTickets.count);
   const elements = ticketList.slice(0, counter);
   useEffect(() => {
@@ -23,6 +22,7 @@ const ListTickets = () => {
     }
     dispatch(tickets(ticket.getTickets()));
   }, []);
+
   return (
     <ul className={classes["list-tickets"]}>
       {elements.map((el) => {
