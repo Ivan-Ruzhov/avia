@@ -29,12 +29,17 @@
     padding-top: 20px;
   }
 }
+
+
 .antd-checkbox-group {
   display: flex;
   width: 232px;
   height: 40px;
   padding: 10px 0 10px 20px;
   position: relative;
+  .antd-checkbox-input {
+
+  }
   label {
     margin: 0 !important;
   }
@@ -43,7 +48,8 @@
     z-index: -1;
     opacity: 0;
     margin-left: 20px;
-
+    width: 20px !important;
+    height: 20px !important;
   }
   &__checkbox+&__label::before {
     content: '';

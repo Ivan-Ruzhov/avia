@@ -4,7 +4,7 @@ import { Alert, Spin } from "antd";
 import { Ticket } from "../Ticket";
 import { FooterButton } from "../Footer-button";
 import { ticketsServes } from "../tickets-servise";
-import { ticket, loadingBegin } from "../actions/actions";
+import { ticket, loadingBegin, error } from "../actions/actions";
 import { filterOfStops } from "../Reducer/Checxbox-reducer";
 import classes from "./ListTickets.module.scss";
 const ListTickets = () => {
@@ -27,7 +27,13 @@ const ListTickets = () => {
     dispatch(ticket(getTickets.getTickets()));
   }, []);
   useEffect(() => {
-    dispatch(ticket(getTickets.getTickets().catch()));
+    dispatch(
+      ticket(
+        getTickets.getTickets().catch((err) => {
+          dispatch(error());
+        })
+      )
+    );
   }, [stops]);
   return (
     <React.Fragment>

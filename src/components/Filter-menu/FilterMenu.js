@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox } from "antd";
+import { Checkbox, ConfigProvider } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { setCheckAll, setCheckedList } from "../actions/actions";
 import classes from "./FilterMenu.module.scss";
@@ -27,27 +27,37 @@ const FilterMenu = () => {
   return (
     <section className={classes["antd-checkbox"]}>
       <p className={classes["antd-checkbox__header"]}> Kоличество пересадок</p>
-      <Checkbox
-        className={classes["antd-checkbox__checkbox"]}
-        onChange={onCheckAllChange}
-        checked={filter.checkAll}
-      >
-        Все
-      </Checkbox>
-      <CheckboxGroup
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-          height: "100%",
-          padding: "10px 0px 20px 20px",
-          margin: "0px",
+      <ConfigProvider
+        theme={{
+          token: {
+            controlInteractiveSize: 20,
+            fontSize: 13,
+            fontFamily: "Open Sans, sans-serif",
+          },
         }}
-        className={classes["antd-checkbox-group"]}
-        options={plainOptions}
-        value={filter.checkedList}
-        onChange={onChange}
-      />
+      >
+        <Checkbox
+          className={classes["antd-checkbox__checkbox"]}
+          onChange={onCheckAllChange}
+          checked={filter.checkAll}
+        >
+          Все
+        </Checkbox>
+        <CheckboxGroup
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-around",
+            height: "100%",
+            padding: "10px 0px 20px 20px",
+            margin: "0px",
+          }}
+          className={classes["antd-checkbox-group"]}
+          options={plainOptions}
+          value={filter.checkedList}
+          onChange={onChange}
+        />
+      </ConfigProvider>
     </section>
   );
 };

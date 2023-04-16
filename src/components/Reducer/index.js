@@ -4,7 +4,6 @@ import thunk from "redux-thunk";
 import { checkboxOptions } from "./Checxbox-reducer";
 import { ticketReducer } from "./Ticket-reducer";
 import { moreTickets } from "./Filter-More-Tickets";
-
 const rootReducer = combineReducers({
   checkboxOptions,
   ticketReducer,

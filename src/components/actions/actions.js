@@ -13,24 +13,25 @@ import {
   STOP_INC,
   ERROR,
 } from "./types";
-
 const ticket = (fn) => {
-  console.log("fetch");
-  return async (dispatch) => {
-    try {
+  try {
+    return async (dispatch) => {
       const res = await fn;
-      dispatch({ type: TICKETS, arr: res });
+      if (!res) {
+        dispatch(stopInc());
+        return null;
+      }
       if (!res.stop) {
         dispatch(stopInc());
       } else {
-        dispatch(stopStatic());
         dispatch(loadingEnd());
+        dispatch(stopStatic());
       }
-    } catch (err) {
-      dispatch(error());
-      throw new Error(err);
-    }
-  };
+      dispatch({ type: TICKETS, arr: res });
+    };
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 const moreTickets = () => ({ type: FILTER_MORE_TICKETS });
@@ -79,4 +80,5 @@ export {
   onFast,
   onOptimal,
   loadingBegin,
+  error,
 };

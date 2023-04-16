@@ -1,30 +1,38 @@
 import React from "react";
 import { onSale, onFast, onOptimal } from "../actions/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import classes from "./FilterHeader.module.scss";
 
 const FilterHeader = () => {
   const dispatch = useDispatch();
-  const active = useSelector((state) => state.active);
+  const onClick = (e) => {
+    const list = e.currentTarget.querySelectorAll("button");
+    if (!e.target.classList.contains(`${classes["filter__buttons-active"]}`)) {
+      for (let i = 0; i < list.length; i++) {
+        list[i].classList.remove(`${classes["filter__buttons-active"]}`);
+      }
+      e.target.classList.add(`${classes["filter__buttons-active"]}`);
+    }
+  };
   return (
-    <div className={classes.filter}>
+    <div className={classes.filter} onClick={onClick}>
       <button
         className={`${classes.filter__buttons} ${classes["filter__button-cheap"]}`}
         onClick={() => dispatch(onSale())}
       >
-        <span className={classes.filter__span}>Самый дешевый</span>
+        Самый дешевый
       </button>
       <button
         className={classes.filter__buttons}
         onClick={() => dispatch(onFast())}
       >
-        <span className={classes.filter__span}>Самый быстрый</span>
+        Самый быстрый
       </button>
       <button
         className={`${classes.filter__buttons} ${classes["filter__button-optimal"]}`}
         onClick={() => dispatch(onOptimal())}
       >
-        <span className={classes.filter__span}>Оптималый</span>
+        Оптималый
       </button>
     </div>
   );

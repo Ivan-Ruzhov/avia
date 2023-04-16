@@ -16,16 +16,14 @@ class ticketsServes {
       const params = new URL("tickets", this.api_Base);
       params.searchParams.set("searchId", this.id);
       const res = await fetch(params);
-      if (!res.ok) {
-        if (res.status === 500) {
-          throw new Error("500", "Ошибка на сервере!");
-        }
+      if (res.status === 500) {
+        throw new Error("500 Ошибка на сервере!");
       }
       return await res.json().then((res) => {
         return res;
       });
     } catch (err) {
-      throw err.message;
+      throw new Error(err.message);
     }
   }
 }

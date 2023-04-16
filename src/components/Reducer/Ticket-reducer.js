@@ -84,7 +84,7 @@ const ticketReducer = (state = defaultState, action) => {
     case ERROR:
       return {
         ...state,
-        err: "error",
+        err: action.payload,
       };
     default:
       return state;
