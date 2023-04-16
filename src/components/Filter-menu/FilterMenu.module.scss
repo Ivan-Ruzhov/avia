@@ -6,6 +6,7 @@
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  cursor: url("../../picture/Cursor.svg"), pointer;
   @media (min-width: 768px) {
     width: 232px;
     height: 252px;
@@ -13,6 +14,7 @@
   }
   &__checkbox {
     margin-left: 20px;
+    cursor: url("../../picture/Cursor.svg"), pointer;
   }
   &__header {
     display: flex;
@@ -29,61 +31,17 @@
     padding-top: 20px;
   }
 }
-
-
 .antd-checkbox-group {
-  display: flex;
-  width: 232px;
-  height: 40px;
-  padding: 10px 0 10px 20px;
-  position: relative;
-  .antd-checkbox-input {
-
-  }
   label {
     margin: 0 !important;
+    padding: 5px 0;
+    cursor: url("../../picture/Cursor.svg"), pointer;
   }
-  &__checkbox {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-    margin-left: 20px;
-    width: 20px !important;
-    height: 20px !important;
+  label:hover {
+    background: $color-light-blue;
   }
-  &__checkbox+&__label::before {
-    content: '';
-    display: flex;
-    position: absolute;
-    top: 8px;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    flex-grow: 0;
-    border: 1px solid $color-border-checkbox;
-    border-radius: 2px;
-    margin-right: 0.5em;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 50% 50%;
-    margin-left: 20px;
-  }
-  &__checkbox:checked+&__label::before {
-    border-color: $color-blue;
-    background-color: $color-white;
-    background-image: url("../../picture/Shape.svg");
-    background-size: 70%;
-  }
-  &__label {
-    display: flex;
-    align-items: center;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 20px;
-    margin-left: 30px;
-  }
-}
-.checkbox-containers:hover{
-  background: $color-light-blue;
+    input {
+      background: $color-white;
+      cursor: url("../../picture/Cursor.svg"), pointer;
+    }
 }

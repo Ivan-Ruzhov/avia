@@ -1,9 +1,8 @@
-import { SET_CHECK_ALL, SET_CHECKED_lIST, SET_RADIO } from "../actions/types";
+import { SET_CHECK_ALL, SET_CHECKED_lIST } from "../actions/types";
 
 const initialState = {
   checkedList: ["Без пересадок", "1 пересадка", "2 пересадки", "3 пересадки"],
   checkAll: true,
-  radio: "a",
 };
 
 const checkboxOptions = (state = initialState, action) => {
@@ -12,8 +11,7 @@ const checkboxOptions = (state = initialState, action) => {
       return { ...state, checkedList: action.payload };
     case SET_CHECK_ALL:
       return { ...state, checkAll: action.payload };
-    case SET_RADIO:
-      return { ...state, radio: action.payload };
+
     default:
       return state;
   }

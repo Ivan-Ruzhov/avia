@@ -3,7 +3,6 @@ import {
   FILTER_MORE_TICKETS,
   SET_CHECKED_lIST,
   SET_CHECK_ALL,
-  SET_RADIO,
   BUTTON_SALES,
   BUTTON_FAST,
   BUTTON_OPTIMAL,
@@ -46,14 +45,8 @@ const setCheckAll = (payload) => ({
   payload,
 });
 
-const setRadio = (payload) => ({
-  type: SET_RADIO,
-  payload,
-});
-
-const onSale = (payload) => ({
+const onSale = () => ({
   type: BUTTON_SALES,
-  payload,
 });
 
 const onOptimal = () => ({ type: BUTTON_OPTIMAL });
@@ -73,7 +66,6 @@ const error = () => ({ type: ERROR });
 export {
   ticket,
   moreTickets,
-  setRadio,
   setCheckAll,
   setCheckedList,
   onSale,
